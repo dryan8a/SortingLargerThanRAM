@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingLargerThanRAM", "SortingLargerThanRAM\SortingLargerThanRAM.csproj", "{AD2C6404-7098-40FB-B294-2F18C081B3B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortingTests", "SortingTests\SortingTests.csproj", "{25A93CEA-591E-457B-8E3B-1A6A52CB8FE9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD2C6404-7098-40FB-B294-2F18C081B3B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD2C6404-7098-40FB-B294-2F18C081B3B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD2C6404-7098-40FB-B294-2F18C081B3B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD2C6404-7098-40FB-B294-2F18C081B3B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25A93CEA-591E-457B-8E3B-1A6A52CB8FE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25A93CEA-591E-457B-8E3B-1A6A52CB8FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25A93CEA-591E-457B-8E3B-1A6A52CB8FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25A93CEA-591E-457B-8E3B-1A6A52CB8FE9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62CF96F4-5DFA-4065-955A-29B04F0DC317}
+	EndGlobalSection
+EndGlobal
