@@ -15,10 +15,10 @@ namespace SortingLargerThanRAM
             var stream = File.OpenRead("city_temperature.csv");
             int amountOfNeededFiles = (int)(stream.Length / AmountOfRam) + 1;
 
-            var sortingStreams = new List<FileStream>();
+            var sortingStreams = new FileStream[amountOfNeededFiles];
             for(int i = 0;i<amountOfNeededFiles;i++)
             {
-                sortingStreams.Add(File.Create($"file{i}.txt"));
+                sortingStreams[i] = File.Create($"file{i}.txt");
 
                 var bytesToCopy = new byte[AmountOfRam];
                 stream.Read(bytesToCopy, 0, AmountOfRam);

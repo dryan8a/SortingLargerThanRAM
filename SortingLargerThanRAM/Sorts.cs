@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace SortingLargerThanRAM
@@ -47,6 +48,22 @@ namespace SortingLargerThanRAM
                     currentRight++;
                 }
             }
+        }
+
+        public static void KWayMerge(FileStream[] filesToMerge)
+        {
+            var originalBytes = new Queue<LoserTree<byte>.Node<byte>>(); //gets the lowest byte from each file
+            for(int i = 0;i<filesToMerge.Length;i++)
+            {
+                filesToMerge[i].Position = 0;
+                var byteToRead = new byte[1];
+                filesToMerge[i].Read(byteToRead, 0, 1);
+                originalBytes.Enqueue(new LoserTree<byte>.Node<byte>(byteToRead[0], i));
+            }
+
+            var tree = new LoserTree<byte>(originalBytes);
+
+            throw new NotImplementedException(); //add the current winner and replay games until you run out of things to read
         }
     }
 }
