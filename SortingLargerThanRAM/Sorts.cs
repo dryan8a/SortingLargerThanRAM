@@ -52,17 +52,25 @@ namespace SortingLargerThanRAM
 
         public static void KWayMerge(FileStream[] filesToMerge, FileStream output)
         {
-            var originalBytes = new Queue<LoserTree<byte>.Node<byte>>(); //gets the lowest byte from each file
+            if(filesToMerge.Length == 1) //if there is only one file, just copy that file to the output
+            {
+                filesToMerge[0].Position = 0;
+                output.Position = 0;
+                filesToMerge[0].CopyTo(output);
+                return;
+            }
+
+            var originalBytes = new Queue<LoserTree<byte>.Node>(); //gets the lowest byte from each file
             for(int i = 0;i<filesToMerge.Length;i++)
             {
                 filesToMerge[i].Position = 0;
                 var byteToRead = new byte[1];
                 filesToMerge[i].Read(byteToRead, 0, 1);
-                originalBytes.Enqueue(new LoserTree<byte>.Node<byte>(byteToRead[0], i));
+                originalBytes.Enqueue(new LoserTree<byte>.Node(byteToRead[0], i));
             }
 
             var tree = new LoserTree<byte>(originalBytes);
-
+            
             while(!tree.Winner.IsEmpty)
             {
                 output.Write(new[] { tree.Winner.Value }, 0, 1);
@@ -71,22 +79,8 @@ namespace SortingLargerThanRAM
 
                 var byteToRead = new byte[1];
                 filesToMerge[tree.Winner.OriginIndex].Read(byteToRead, 0, 1);
-                
-                if(filesToMerge[3].Length == filesToMerge[3].Position)
-                {
-                    //var bytesToRead = new byte[3];
-                    //filesToMerge[0].Read(bytesToRead, 0, 1);
-                    //filesToMerge[1].Read(bytesToRead, 1, 1);
-                    //filesToMerge[2].Read(bytesToRead, 2, 1);
-                    ;
-                }
 
-                if(byteToRead[0] != tree.Winner.Value)
-                {
-                    ;
-                }
-
-                var newNode = new LoserTree<byte>.Node<byte>(byteToRead[0], tree.Winner.OriginIndex, streamIsEmpty);
+                var newNode = new LoserTree<byte>.Node(byteToRead[0], tree.Winner.OriginIndex, streamIsEmpty);
                 tree.RefreshTree(tree.Winner, newNode);
             }
             ;
