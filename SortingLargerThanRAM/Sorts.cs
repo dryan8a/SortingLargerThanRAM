@@ -84,6 +84,8 @@ namespace SortingLargerThanRAM
                 tree.RefreshTree(tree.Winner, newNode);
             }
             ;
+            //var bytes = new byte[10];
+            //filesToMerge[4].Read(bytes,0,10);
         }
     }
 }

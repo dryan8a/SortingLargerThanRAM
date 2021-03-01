@@ -45,6 +45,7 @@ namespace SortingTests
             yield return new object[] { new byte[]{2,3,4,5,6,7,8,9,10,16,20,21 }, new[] { new byte[] {2,7,16 },new byte[] {5,10,20 },new byte[] {3,6,21 },new byte[] { 4, 8, 9 } }, 'A'};
             yield return new object[] { new byte[] {1,1,1,1,2,2,2,2,3,3,3,3 }, new[] { new byte[] {1,1,1,3 },new byte[] { 1, 2, 2, 3 },new byte[] { 2, 2, 3, 3 } }, 'B' };
             yield return new object[] { new byte[] { 1 }, new[] { new byte[] { 1 } }, 'C' };
+            yield return new object[] { new byte[] { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 }, new[] { new byte[] { 1, 7 }, new byte[] { 5, 6 }, new byte[] { 2, 2 }, new byte[] { 1, 3 }, new byte[] { 3, 4 } }, 'D' };
         }
 
         IEnumerator<object[]> IEnumerable<object[]>.GetEnumerator()
