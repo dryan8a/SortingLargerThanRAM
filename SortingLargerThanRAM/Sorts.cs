@@ -71,11 +71,11 @@ namespace SortingLargerThanRAM
 
             var tree = new LoserTree<byte>(originalBytes);
             
-            while(!tree.Winner.IsEmpty)
+            while(!tree.Winner.IsEmpty) //finds the new lowest value from all the streams until they are all empty
             {
                 output.Write(new[] { tree.Winner.Value }, 0, 1);
 
-                bool streamIsEmpty = filesToMerge[tree.Winner.OriginIndex].Position == filesToMerge[tree.Winner.OriginIndex].Length;
+                bool streamIsEmpty = filesToMerge[tree.Winner.OriginIndex].Position == filesToMerge[tree.Winner.OriginIndex].Length; //equivalent of a node always being the loser if true 
 
                 var byteToRead = new byte[1];
                 filesToMerge[tree.Winner.OriginIndex].Read(byteToRead, 0, 1);
@@ -83,9 +83,6 @@ namespace SortingLargerThanRAM
                 var newNode = new LoserTree<byte>.Node(byteToRead[0], tree.Winner.OriginIndex, streamIsEmpty);
                 tree.RefreshTree(tree.Winner, newNode);
             }
-            ;
-            //var bytes = new byte[10];
-            //filesToMerge[4].Read(bytes,0,10);
         }
     }
 }

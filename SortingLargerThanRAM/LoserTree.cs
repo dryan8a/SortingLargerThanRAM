@@ -37,16 +37,6 @@ namespace SortingLargerThanRAM
                 RightChild = rightChild;
                 IsEmpty = false;
             }
-
-            internal Node(T value, int originIndex, Node leftChild, Node rightChild, Node parent, bool isEmpty)
-            {
-                Value = value;
-                OriginIndex = originIndex;
-                LeftChild = leftChild;
-                RightChild = rightChild;
-                IsEmpty = isEmpty;
-                Parent = parent;
-            }
         }
 
         Node Head;
@@ -60,7 +50,7 @@ namespace SortingLargerThanRAM
             Head = BuildTree(elements);
         }
 
-        private Node BuildTree(Queue<Node> elements)
+        private Node BuildTree(Queue<Node> elements) //Builds specifically the bottom layer of the tree
         {
             if (elements.Count == 0) throw new Exception("Don't add no elements to the tree");
             var newElements = new Queue<(Node current, Node winner)>();
@@ -91,7 +81,9 @@ namespace SortingLargerThanRAM
                 else
                 {
                     var oddElement = elements.Dequeue();
-                    newElements.Enqueue((oddElement, oddElement));
+                    var newParent = new Node(oddElement.Value, oddElement.OriginIndex, oddElement, null);
+                    oddElement.Parent = newParent;
+                    newElements.Enqueue((newParent, oddElement));
                 }
             }
 
@@ -107,10 +99,10 @@ namespace SortingLargerThanRAM
             }
         }
 
-        private Node BuildTree(Queue<(Node current,Node winner)> elements)
+        private Node BuildTree(Queue<(Node current,Node winner)> elements) //Builds all non-bottom layers of the tree
         {
             if (elements.Count == 0) throw new Exception("Don't add no elements to the tree");
-            Node currentWinner = null;
+            
             for(int i = 0;i<elements.Count;i++)
             {
                 if(i != elements.Count - 1) 
@@ -129,6 +121,13 @@ namespace SortingLargerThanRAM
                     loserElement.current.Parent = parent;
                     elements.Enqueue((parent,winnerElement.winner));
                 }
+                else
+                {
+                    var oddElement = elements.Dequeue();
+                    var newParent = new Node(oddElement.winner.Value, oddElement.winner.OriginIndex, oddElement.current, null);
+                    oddElement.current.Parent = newParent;
+                    elements.Enqueue((newParent, oddElement.winner));
+                }
             }
 
             if (elements.Count == 1)
@@ -141,6 +140,11 @@ namespace SortingLargerThanRAM
             }
         }
 
+        /// <summary>
+        /// Refreshes the values of the nodes within the tree given the previous winner being replaced by a new node
+        /// </summary>
+        /// <param name="winnerNode">the winner node to replace</param>
+        /// <param name="newNode">the new node to replace the winner node</param>
         public void RefreshTree(Node winnerNode, Node newNode)
         {
             winnerNode.OriginIndex = newNode.OriginIndex;
@@ -152,6 +156,11 @@ namespace SortingLargerThanRAM
             Winner = FindNewWinner(newWinnerOrigin);
         }
 
+        /// <summary>
+        /// Finds the original root node given the winner's origin index
+        /// </summary>
+        /// <param name="winnerOrigin">winner's origin index</param>
+        /// <returns></returns>
         private Node FindNewWinner(int winnerOrigin)
         {
             var stack = new Stack<Node>();
@@ -176,6 +185,12 @@ namespace SortingLargerThanRAM
             throw new Exception("Origin Index does not exist");
         }
 
+        /// <summary>
+        /// Recursively replays the games used to generate the tree given a new node to check against an old node
+        /// </summary>
+        /// <param name="oldNode">the previous parent node to compare against</param>
+        /// <param name="newNode">the new node which represents the new possible winner</param>
+        /// <returns></returns>
         private int ReplayGames(Node oldNode, Node newNode)
         {
             Node winner = null;
